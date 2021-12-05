@@ -138,8 +138,5 @@ Things.md
 # Visual Code stuff
 .vscode
 
-# Credentials file
-credentials.py
-
 # Environment
 botenv
