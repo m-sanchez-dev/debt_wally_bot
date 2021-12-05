@@ -1,27 +1,20 @@
-APScheduler @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/aa/c1/88/2d2016630264bf30ae4ec8b4ed48b737ef27dd290b8553f85cbe08c98b/APScheduler-3.6.3-py2.py3-none-any.whl
-black @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/1a/08/d2/c1262c8ffe28fa6ab4a2449bbf0782deeb5969594c3383c5428038f827/black-21.11b1-py3-none-any.whl
-cachetools @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/04/ca/d7/8af05dc8ccae1212d4151afd99960369c2415b26bc13ed3bbb288c4f5a/cachetools-4.2.2-py3-none-any.whl
+APScheduler==3.6.3
+cachetools==4.2.2
 certifi==2021.10.8
-charset-normalizer @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/9e/1a/c0/f7635922644ab43cdae873172296c99b00796f2e281669e0fb7516bf88/charset_normalizer-2.0.9-py3-none-any.whl
-click @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/34/4d/5b/2e936191a48c61e37319c157af7e3c0dbdde9b80ccdd04b7940f99c5db/click-8.0.3-py3-none-any.whl
-Flask @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/2f/5b/45/31d4e0a4e8a90241c7b059a6ec47bccb402e5b551def414bb5c0865eef/Flask-2.0.2-py3-none-any.whl
-idna @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/d5/04/80/9c17fd3240a37d12ff2ef042b0306aeb1abd2d8b95f150fd60be938352/idna-3.3-py3-none-any.whl
-itsdangerous @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/56/85/a6/70db371e4b63cdd55bf95de92ac726d8cf622812e0d7383910edd55619/itsdangerous-2.0.1-py3-none-any.whl
-Jinja2 @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/3b/12/80/ed05a8559d6ad1e85324dbcebfe790670d339c674fb15c419b29aae138/Jinja2-3.0.3-py3-none-any.whl
-MarkupSafe @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/20/e4/29/5b1a93d4ee8437f01551437cffbb57ba6744c59796443ca99051473f75/MarkupSafe-2.0.1-cp39-cp39-macosx_10_9_x86_64.whl
-mypy-extensions @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/92/45/bf/1807ce854ff668d92602207a37bfa9316def2a3f257bd03c4c5be4bc9b/mypy_extensions-0.4.3-py2.py3-none-any.whl
-pathspec @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/0a/67/21/620031f7f2938bad77b057a68a4c2a334542a7402a3214ed48690caf8c/pathspec-0.9.0-py2.py3-none-any.whl
-platformdirs @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/e1/59/0b/22d8aa7abf81893c008cf163b80149f535966cf2bde442c26abceac0cb/platformdirs-2.4.0-py3-none-any.whl
-python-telegram-bot @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/53/c0/c3/d48e99ca62c57cc1e86d71f235c635f9368d33321de71fa177c9e51866/python_telegram_bot-13.8.1-py3-none-any.whl
-pytz @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/3e/f3/dd/6629bf5ed0a970a128e0a015f2af3b67280e749a56fdaabdaa06d5fc6b/pytz-2021.3-py2.py3-none-any.whl
-pytz-deprecation-shim @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/3a/d6/49/88d13233f48d022d644aca3a5eaf48d5ab7c9273ed9874e3b46f783ea5/pytz_deprecation_shim-0.1.0.post0-py2.py3-none-any.whl
-regex @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/40/2c/cd/44623af618a829044135250bcc32dd47ecd26d60cdd3dc78a24f665031/regex-2021.11.10-cp39-cp39-macosx_10_9_x86_64.whl
-requests @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/13/00/3d/5574756561eed6b522f5b13d5a2c05c2920860b05b1e687c3792495ba0/requests-2.26.0-py2.py3-none-any.whl
-six @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/08/9f/47/c16ae03035fc69eaf100ea39657a49baaeef714e25a52575710c34cd48/six-1.16.0-py2.py3-none-any.whl
-tomli @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/04/b1/42/66b120badb2e2c588323f2066e27e85314a70d09e9bd0d571ea28b888b/tomli-1.2.2-py3-none-any.whl
-tornado @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/8a/d4/49/50c44b642217b81c4d63991cb2560ebb78029f8090bd4a23c1c11a4ac0/tornado-6.1-cp39-cp39-macosx_10_9_x86_64.whl
-typing_extensions @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/88/68/28/f1a10f89c5267ca2c8a3c0e79c45230a866cd7c52d295e556597219c54/typing_extensions-4.0.1-py3-none-any.whl
-tzdata @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/4e/13/c2/a9899167de185d6623d6eca7d70174426acf7a9e61e6b9705626976c02/tzdata-2021.5-py2.py3-none-any.whl
-tzlocal @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/e4/be/79/4a190bc829b58ebaf5bcf399cb01f0df2494cc2d75ddf25256278f9e58/tzlocal-4.1-py3-none-any.whl
-urllib3 @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/55/46/d1/1acba0600879bfaada54191116fbaea89a464f437b3f949bc9c2a220e7/urllib3-1.26.7-py2.py3-none-any.whl
-Werkzeug @ file:///Users/mikel/Library/Caches/pypoetry/artifacts/dc/22/44/bd6da3eabb9c2469b87c362534f57c29803f4ad859ade03b66b943d84b/Werkzeug-2.0.2-py3-none-any.whl
+charset-normalizer==2.0.9
+click==8.0.3
+Flask==2.0.2
+idna==3.3
+itsdangerous==2.0.1
+Jinja2==3.0.3
+MarkupSafe==2.0.1
+python-telegram-bot==13.8.1
+pytz==2021.3
+pytz-deprecation-shim==0.1.0.post0
+requests==2.26.0
+six==1.16.0
+tornado==6.1
+tzdata==2021.5
+tzlocal==4.1
+urllib3==1.26.7
+Werkzeug==2.0.2
