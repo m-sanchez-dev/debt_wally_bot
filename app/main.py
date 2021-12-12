@@ -30,11 +30,11 @@ def another_route():
 
     print(update)
 
-    chat_id = update.message.chat.id
-    user = update.message.from_user
+    chat_id = update.effective_message.chat.id
+    user = update.effective_message.from_user
 
     # Telegram understands UTF-8, so encode text for unicode compatibility
-    text = update.message.text.encode("utf-8").decode()
+    text = update.effective_message.text.encode("utf-8").decode()
     print("got text message :", text)
     print("from user :", user["username"])
 
