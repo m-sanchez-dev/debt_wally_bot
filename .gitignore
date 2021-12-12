@@ -132,9 +132,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Personal notes
-Things.md
-
 # Visual Code stuff
 .vscode
 
