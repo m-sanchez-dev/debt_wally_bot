@@ -28,6 +28,8 @@ def another_route():
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
 
+    print(update)
+
     chat_id = update.message.chat.id
     user = update.message.from_user
 
