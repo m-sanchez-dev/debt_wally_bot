@@ -49,11 +49,6 @@ def set_webhook():
         return "webhook setup failed"
 
 
-@app.route("/", methods=["POST"])
-def another_route():
-    return "something"
-
-
 @app.route("/")
 def home_view():
     return "<h1>Welcome to Debt_bot</h1>"
