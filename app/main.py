@@ -2,7 +2,7 @@
 import re
 from flask import Flask, request
 import telegram
-from telebot.credentials import bot_token, bot_user_name,URL
+from APP.credentials import bot_token, bot_user_name,URL
 
 global bot
 global TOKEN
@@ -57,9 +57,9 @@ def set_webhook():
    else:
        return "webhook setup failed"
 
-@app.route('/')
-def index():
-    return '.'
+@app.route("/")
+def home_view():
+        return "<h1>Welcome to Geeks for Geeks</h1>"
 
 if __name__ == '__main__':
     # note the threaded arg which allow
