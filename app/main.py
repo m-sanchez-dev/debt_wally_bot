@@ -1,5 +1,4 @@
 """ Main module for the bot, containing the API routes to interact with the bot """
-import re
 import os
 
 import telegram
@@ -24,21 +23,20 @@ def set_webhook():
         return "webhook setup failed"
 
 
-@app.route("/", methods=["POST"])
+@app.route("/w4lly-t3l3gram-b0t", methods=["POST"])
 def another_route():
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
 
-    dummy_message = "something"
-
     chat_id = update.message.chat.id
-    msg_id = update.message.message_id
     user = update.message.from_user
 
     # Telegram understands UTF-8, so encode text for unicode compatibility
     text = update.message.text.encode("utf-8").decode()
     print("got text message :", text)
-    print("from user :", user)
+    print("from user :", user["username"])
+
+    dummy_message = f"Hola {user['username']}"
 
     bot.sendMessage(chat_id=chat_id, text=dummy_message)
 
