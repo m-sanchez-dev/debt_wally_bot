@@ -5,9 +5,9 @@ import psycopg2
 
 class DatabaseConection:
     def __init__(self):
-        # DATABASE_URL = os.environ.get("DATABASE_URL")
+        DATABASE_URL = os.environ.get("DATABASE_URL")
 
-        DATABASE_URL = "postgres://xijijinmgktzxs:706e427bb61cdfdce54b50d0be8ea486dd2fa9b6b9769701477a8ad453cc6b8d@ec2-52-214-178-113.eu-west-1.compute.amazonaws.com:5432/dbf5om2l8ub0se"
+        # DATABASE_URL = "postgres://xijijinmgktzxs:706e427bb61cdfdce54b50d0be8ea486dd2fa9b6b9769701477a8ad453cc6b8d@ec2-52-214-178-113.eu-west-1.compute.amazonaws.com:5432/dbf5om2l8ub0se"
 
         self.con = psycopg2.connect(DATABASE_URL)
 
