@@ -1,7 +1,12 @@
 """ Module containing helper methods """
 from typing import Union
 
-from app.misc.exceptions import InvalidCommand, NotEnoughtRights, UnknownCommand
+from app.misc.exceptions import (
+    InvalidCommand,
+    NotEnoughtRights,
+    UnknownCommand,
+    InvalidUser,
+)
 from app.classes.database_conection import DatabaseConection
 from app.misc.constants import POUND_SYMBOL
 
@@ -141,9 +146,9 @@ def get_response(message, user):
     return messages
 
 
-def user_validation():
+def user_validation(user_to_validate):
 
     valid_users = ["Trmpy", "Wallyx"]
 
-    if user not in valid_users:
+    if user_to_validate not in valid_users:
         raise InvalidUser("A tu casa")
