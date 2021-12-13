@@ -82,7 +82,7 @@ def reset_debt(user):
     It also creates all the elements for the query insert
     And calls the insert method
     """
-    if user == "Mikel Sanchez":
+    if user == "Wallyx":
         cuentas_connection = DatabaseConection()
         cuentas_connection.save_to_db(user, "Pago-Alquiler", 0, False, 0, 0)
         cuentas_connection.close_connection()
@@ -97,6 +97,7 @@ def get_response(message, user):
     /add: Will add a new record to database
     /total: Will show how much the last debt is
     /reset: Will reset the debt amount
+    /despierta: Wake up the bot, returns message
     /help: Will show some examples
     """
 
@@ -130,7 +131,19 @@ def get_response(message, user):
 
     elif command == "/help":
         pass
+
+    elif command == "/despierta":
+        message = "Oye! Seras tu el que esta dormido!"
+        messages.append(message)
     else:
-        raise UnknownCommand("Tal vez vayas borracho")
+        raise UnknownCommand("Alguien no sabe lo que escribe... No son horas de beber!")
 
     return messages
+
+
+def user_validation():
+
+    valid_users = ["Trmpy", "Wallyx"]
+
+    if user not in valid_users:
+        raise InvalidUser("A tu casa")
