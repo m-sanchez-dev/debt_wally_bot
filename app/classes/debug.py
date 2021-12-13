@@ -2,5 +2,8 @@
 
 
 class Debugger:
-    def log(msg):
+    def __init__():
+        pass
+    
+    def log(self, msg):
         print(msg)
