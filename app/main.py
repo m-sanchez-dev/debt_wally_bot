@@ -30,17 +30,21 @@ def another_route():
 
     print(update)
 
-    chat_id = update.effective_message.chat.id
-    user = update.effective_message.from_user
+    try:
 
-    # Telegram understands UTF-8, so encode text for unicode compatibility
-    text = update.effective_message.text.encode("utf-8").decode()
-    print("got text message :", text)
-    print("from user :", user["username"])
+        chat_id = update.effective_message.chat.id
+        user = update.effective_message.from_user
 
-    dummy_message = f"Hola {user['username']}"
+        # Telegram understands UTF-8, so encode text for unicode compatibility
+        text = update.effective_message.text.encode("utf-8").decode()
+        print("got text message :", text)
+        print("from user :", user["username"])
 
-    bot.sendMessage(chat_id=chat_id, text=dummy_message)
+        dummy_message = f"Hola {user['username']}"
+
+        bot.sendMessage(chat_id=chat_id, text=dummy_message)
+    except AttributeError:
+        print("No es un mensaje")
 
     return "ok"
 
