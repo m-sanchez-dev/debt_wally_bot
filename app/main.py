@@ -5,7 +5,7 @@ import telegram
 from flask import Flask, request
 from app.misc.exceptions import InvalidUser
 from app.misc.helpers import user_validation, get_response
-from app.classes.debug import Debugger
+# from app.classes.debug import Debugger
 
 global bot
 global TOKEN
@@ -16,7 +16,7 @@ bot = telegram.Bot(token=TOKEN)
 # start the flask app
 app = Flask(__name__)
 
-logging = Debugger()
+# logging = Debugger()
 
 
 @app.route("/setwebhook", methods=["GET", "POST"])
@@ -33,7 +33,7 @@ def another_route():
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
 
-    logging.log(update)
+    print(update)
 
     try:
 
@@ -54,7 +54,7 @@ def another_route():
             bot.sendMessage(chat_id=chat_id, text=message)
 
     except AttributeError:
-        logging.log("Received a notification, this is not a message")
+        print("Received a notification, this is not a message")
 
     except InvalidUser as error_menssage:
 
