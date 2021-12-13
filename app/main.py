@@ -5,6 +5,7 @@ import telegram
 from flask import Flask, request
 from app.misc.exceptions import InvalidUser
 from app.misc.helpers import user_validation, get_response
+
 # from app.classes.debug import Debugger
 
 global bot
