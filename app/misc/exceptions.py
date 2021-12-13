@@ -8,3 +8,7 @@ class NotEnoughtRights(Exception):
 
 class UnknownCommand(Exception):
     pass
+
+
+class InvalidUser(Exception):
+    pass
