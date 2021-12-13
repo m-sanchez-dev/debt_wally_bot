@@ -3,6 +3,9 @@ import os
 
 import telegram
 from flask import Flask, request
+from app.misc.exceptions import InvalidUser
+from app.misc.helpers import user_validation, get_response
+from app.classes.debug import Debugger
 
 global bot
 global TOKEN
@@ -12,6 +15,8 @@ bot = telegram.Bot(token=TOKEN)
 
 # start the flask app
 app = Flask(__name__)
+
+logging = Debugger()
 
 
 @app.route("/setwebhook", methods=["GET", "POST"])
@@ -28,23 +33,32 @@ def another_route():
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
 
-    print(update)
+    logging.log(update)
 
     try:
 
         chat_id = update.effective_message.chat.id
         user = update.effective_message.from_user
 
+        username = user["username"]
+
+        user_validation(username)
+
         # Telegram understands UTF-8, so encode text for unicode compatibility
         text = update.effective_message.text.encode("utf-8").decode()
         print("got text message :", text)
-        print("from user :", user["username"])
+        print("from user :", username)
 
-        dummy_message = f"Hola {user['username']}"
+        messages = get_response(text, username)
+        for message in messages:
+            bot.sendMessage(chat_id=chat_id, text=message)
 
-        bot.sendMessage(chat_id=chat_id, text=dummy_message)
     except AttributeError:
-        print("No es un mensaje")
+        logging.log("Received a notification, this is not a message")
+
+    except InvalidUser as error_menssage:
+
+        bot.sendMessage(chat_id=chat_id, text=str(error_menssage))
 
     return "ok"
 
