@@ -3,15 +3,15 @@ import os
 
 import telegram
 from flask import Flask, request
-from app.misc.exceptions import (
-    InvalidUser,
-    UnknownCommand,
-    NotEnoughtRights,
-    InvalidCommand,
-)
-from app.misc.helpers import user_validation, get_response
 
-# from app.classes.debug import Debugger
+from app.classes.debug import Debugger
+from app.misc.exceptions import (
+    InvalidCommand,
+    InvalidUser,
+    NotEnoughtRights,
+    UnknownCommand,
+)
+from app.misc.helpers import get_response, user_validation
 
 global bot
 global TOKEN
@@ -22,7 +22,7 @@ bot = telegram.Bot(token=TOKEN)
 # start the flask app
 app = Flask(__name__)
 
-# logging = Debugger()
+debug = Debugger()
 
 
 @app.route("/setwebhook", methods=["GET", "POST"])
@@ -39,7 +39,7 @@ def telegram_message():
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
 
-    print(update)
+    debug.log(update)
 
     try:
 
@@ -52,15 +52,15 @@ def telegram_message():
 
         # Telegram understands UTF-8, so encode text for unicode compatibility
         text = update.effective_message.text.encode("utf-8").decode()
-        print("got text message :", text)
-        print("from user :", username)
+        debug.log("got text message :", text)
+        debug.log("from user :", username)
 
         messages = get_response(text, username)
         for message in messages:
             bot.sendMessage(chat_id=chat_id, text=message)
 
     except AttributeError:
-        print("Received a notification, this is not a message")
+        debug.log("Received a notification, this is not a message")
 
     except (
         InvalidCommand,

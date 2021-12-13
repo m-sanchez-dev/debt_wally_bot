@@ -1,14 +1,14 @@
 """ Module containing helper methods """
 from typing import Union
 
-from app.misc.exceptions import (
-    InvalidCommand,
-    NotEnoughtRights,
-    UnknownCommand,
-    InvalidUser,
-)
 from app.classes.database_conection import DatabaseConection
 from app.misc.constants import POUND_SYMBOL
+from app.misc.exceptions import (
+    InvalidCommand,
+    InvalidUser,
+    NotEnoughtRights,
+    UnknownCommand,
+)
 
 
 def get_total_from_result(result) -> int:
