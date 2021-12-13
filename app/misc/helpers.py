@@ -117,7 +117,7 @@ def get_response(message, user):
         get_calculation_elements(amount, matter, user)
         messages.append("Nuevo pago agregado a la deuda")
         messages.append(f"Asunto: {matter}")
-        messages.append(f"Cantidad: {amount}")
+        messages.append(f"Cantidad: {POUND_SYMBOL}{amount}")
         debt = get_actual_debt()
         message = f"Deuda actualizada: {POUND_SYMBOL}{debt}"
         messages.append(message)
