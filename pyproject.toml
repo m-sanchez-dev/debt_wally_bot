@@ -6,7 +6,7 @@ authors = ["sWallyx <mikelsmartinez@aol.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-Flask = "^2.0.2"
+Flask = "^2.3.2"
 python-telegram-bot = "^13.8.1"
 requests = "^2.26.0"
 
