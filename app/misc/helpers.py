@@ -1,15 +1,18 @@
 """ Module containing helper methods """
 
+import re
 from typing import Union
 
 from app.classes.database_conection import DatabaseConection
+from app.classes.debug import Debugger
 from app.misc.constants import POUND_SYMBOL
 from app.misc.exceptions import (
     InvalidCommand,
     InvalidUser,
-    NotEnoughtRights,
     UnknownCommand,
 )
+
+debug = Debugger()
 
 
 def get_total_from_result(result) -> int:
@@ -83,27 +86,35 @@ def get_calculation_elements(amount, matter, user):
     cuentas_connection.close_connection()
 
 
-def reset_debt(user):
-    """
-    Creates all the elements for the new debt calculus
-    It also creates all the elements for the query insert
-    And calls the insert method
-    """
-    if user == "Wallyx":
-        cuentas_connection = DatabaseConection()
-        cuentas_connection.save_to_db(user, "Pago-Alquiler", 0, False, 0, 0)
-        cuentas_connection.close_connection()
+def calculate_rent_amount(amountPinned):
+    rentAmount = 650
+    return rentAmount - amountPinned
+
+
+def retrieve_pinned_message_amount(pinned_message):
+    # Define a regular expression pattern to match the number amount
+    pattern = r"£([\d.]+)"
+
+    # Use re.search to find the match in the message
+    match = re.search(pattern, pinned_message)
+
+    # Extract the matched number amount
+    if match:
+        number_amount = float(match.group(1))
+        debug.log("Extracted number amount:", number_amount)
+        return number_amount
     else:
-        raise NotEnoughtRights("Eres muy joven para hacer esa operacion")
+        debug.log("No number amount found in the message.")
 
 
-def get_response(message, user):
+def get_response(message, user, amountPinned=0):
     """
     Gets the message send by user and checks the command
     Available commands /add and /show
     /add: Will add a new record to database
     /total: Will show how much the last debt is
-    /reset: Will reset the debt amount
+    /set: Will set the debt amount
+    /reset: Resets debt to 0 after paying rent
     /despierta: Wake up the bot, returns message
     /help: Will show some examples
     """
@@ -125,16 +136,18 @@ def get_response(message, user):
         messages.append(message)
 
     elif command == "/total":
-        # Show total amount
-        debt = get_actual_debt()
-        message = f"Deuda actual: {POUND_SYMBOL}{debt}"
+        message = f"Deuda actual: {POUND_SYMBOL}{amountPinned}"
+        messages.append(message)
+
+    elif command == "/set":
+        message = f"Deuda actual: {POUND_SYMBOL}{splitted_message}"
         messages.append(message)
 
     elif command == "/reset":
-        # Adds a new line to reset the debt to 0
-        reset_debt(user)
-        message = "Alquiler pagado, deuda reseteada a 0"
-        messages.append(message)
+        rentAmountToPay = calculate_rent_amount(amountPinned)
+        messages.append(f"Alquiler a pagar, {rentAmountToPay}")
+        messages.append("Alquiler pagado, deuda reseteada a 0")
+        messages.append(f"Deuda actual: {POUND_SYMBOL}0")
 
     elif command == "/help":
         pass
@@ -152,8 +165,7 @@ def get_response(message, user):
 
 
 def user_validation(user_to_validate):
-
-    valid_users = ["Trmpy", "Wallyx"]
+    valid_users = ["Trmpy", "Wallyx", "debt_wally_bot"]
 
     if user_to_validate not in valid_users:
         raise InvalidUser("A tu casa")
