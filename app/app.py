@@ -72,14 +72,14 @@ async def telegram_message():
             pinned_text = chat.pinned_message.text.encode("utf-8").decode()
             debt_amount = retrieve_pinned_message_amount(pinned_text)
         else:
-            await bot.pin_chat_message(
+            await bot.sendMessage(
                 chat_id=chat_id,
-                message_id="""Revisa el mensaje fijado porque no se ha
+                text="""Revisa el mensaje fijado porque no se ha
                 encontrado el mensaje con el total.""",
             )
-            await bot.pin_chat_message(
+            await bot.sendMessage(
                 chat_id=chat_id,
-                message_id="""Usa el siguiente commando para poner una cantidad
+                text="""Usa el siguiente commando para poner una cantidad
                 /set 23.32""",
             )
 
@@ -87,7 +87,7 @@ async def telegram_message():
         for message in messages:
             sent_message = await bot.sendMessage(chat_id=chat_id, text=message)
 
-            if text == "/total":
+            if "Deuda actual:" in message:
                 await bot.pin_chat_message(
                     chat_id=chat_id, message_id=sent_message["message_id"]
                 )

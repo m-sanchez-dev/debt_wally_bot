@@ -3,7 +3,6 @@
 import re
 from typing import Union
 
-from app.classes.database_conection import DatabaseConection
 from app.classes.debug import Debugger
 from app.misc.constants import POUND_SYMBOL
 from app.misc.exceptions import (
@@ -13,11 +12,6 @@ from app.misc.exceptions import (
 )
 
 debug = Debugger()
-
-
-def get_total_from_result(result) -> int:
-
-    return result[6]
 
 
 def get_elements_from_message(splitted_message) -> Union[str, str]:
@@ -40,62 +34,29 @@ def check_message_and_split(splitted_message):
     return get_elements_from_message(splitted_message)
 
 
-def get_actual_debt():
-    cuentas_connection = DatabaseConection()
-    cuentas_connection.get_last_record()
-    result = cuentas_connection.get_result()
-    return get_total_from_result(result)
-
-
-def calculate_new_debt(
-    amount: float, debtAmount: float = 0, skipDB: bool = False
-) -> float:
+def calculate_new_debt(amount: float, debtAmount: float = 0) -> float:
     """
-    Retrieves the previous debt from the db and
-    calculates the new one using the debt
+    Adds debt to the amount
     """
-    # Get previous debt
-    if not skipDB:
-        debt = get_actual_debt()
-    else:
-        debt = debtAmount
-
-    new_amount = debt + amount
-
-    return new_amount
+    return debtAmount + amount
 
 
-def save_to_database(user, matter, original_amount, divide, amount, calculated_debt):
-    cuentas_connection = DatabaseConection()
-    cuentas_connection.save_to_db(
-        user, matter, float(original_amount), divide, amount, calculated_debt
-    )
-    cuentas_connection.close_connection()
-
-
-def get_calculation_elements(
-    amount, matter, user, debtAmount: float = 0, skipDB: bool = False
-) -> float:
+def get_calculation_elements(amount, debtAmount: float = 0) -> float:
     """
     Creates all the elements for the new debt calculus
     It also creates all the elements for the query insert
     And calls the insert method
     """
     divide = False
-    original_amount = amount
 
     if "/" in amount:
         amount = float(amount.split("/")[0])
-        original_amount = amount
         divide = True
 
     if divide:
         amount = amount / 2
 
     calculated_debt = calculate_new_debt(float(amount), debtAmount)
-
-    if not skipDB:
-        save_to_database(user, matter, original_amount, divide, amount, calculated_debt)
 
     return calculated_debt
 
@@ -141,7 +102,7 @@ def get_response(message, user, amountPinned: float = 0):
     if command == "/add":
         # Add new amount
         matter, amount = check_message_and_split(splitted_message)
-        debt = get_calculation_elements(amount, matter, user, amountPinned, skipDB=True)
+        debt = get_calculation_elements(amount, amountPinned)
         messages.append("Nuevo pago agregado a la deuda")
         messages.append(f"Asunto: {matter}")
         messages.append(f"Cantidad: {POUND_SYMBOL}{amount}")

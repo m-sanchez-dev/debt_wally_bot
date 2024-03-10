@@ -4,7 +4,6 @@ from app.misc.exceptions import InvalidCommand
 from app.misc.helpers import (
     calculate_rent_amount,
     check_message_and_split,
-    get_total_from_result,
     retrieve_pinned_message_amount,
 )
 
@@ -18,11 +17,6 @@ def client():
     client = app.test_client()
 
     yield client
-
-
-def test_get_total_from_result():
-    result = [1, 2, 3, 4, 5, 6, 7]
-    assert get_total_from_result(result) == 7
 
 
 def test_check_message_and_split():
