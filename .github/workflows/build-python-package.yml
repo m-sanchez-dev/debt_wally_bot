@@ -3,7 +3,23 @@ name: Build Python Package
 on: [push]
 
 jobs:
-  Build-Package:
+  Build-Package-With-Pip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+      - name: Run tests
+        run: |
+          python -m pytest
+  Build-Package-Poetry:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,7 +50,7 @@ jobs:
   Deploy-To-Heroku:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    needs: Build-Package
+    needs: [Build-Package-With-Pip, Build-Package-Poetry]
     steps:
       - uses: actions/checkout@v4
       - name: Deploy to Heroku
