@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "debt_bot"
-version = "0.1.0"
+version = "0.1.1"
 description = "Debt bot for two people on Telegram"
-authors = ["sWallyx <mikelsmartinez@aol.com>"]
+authors = ["m-sanchez-dev <mikelsmartinez@aol.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-Flask = "^2.3.2"
-python-telegram-bot = "^20.4"
-requests = "^2.26.0"
+Flask = "^3.0.2"
+python-telegram-bot = "^21.0.1"
+requests = "^2.31.0"
 
 [tool.poetry.dev-dependencies]
 black = "^24.2"
