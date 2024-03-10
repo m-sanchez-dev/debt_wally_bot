@@ -1,7 +1,8 @@
 import pytest
+
 from app.app import app
 from app.misc.exceptions import InvalidCommand
-from app.misc.helpers import get_total_from_result, check_message_and_split
+from app.misc.helpers import check_message_and_split, get_total_from_result
 
 # Mock token for testing purposes
 MOCK_TOKEN = "your_mock_token"
