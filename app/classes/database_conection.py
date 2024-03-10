@@ -1,4 +1,5 @@
 """ Module containing all interactions with the database """
+
 import os
 
 import psycopg2

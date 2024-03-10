@@ -1,4 +1,5 @@
 """ Module containing helper methods """
+
 from typing import Union
 
 from app.classes.database_conection import DatabaseConection
@@ -29,7 +30,8 @@ def get_elements_from_message(splitted_message) -> Union[str, str]:
 def check_message_and_split(splitted_message):
     if len(splitted_message) != 3:
         raise InvalidCommand(
-            "No contiene la minima cantidad de elementos: /commando asunto cantidad"
+            """No contiene la minima cantidad de elementos:
+            /commando asunto cantidad"""
         )
 
     return get_elements_from_message(splitted_message)
@@ -141,7 +143,10 @@ def get_response(message, user):
         message = "Oye! Seras tu el que esta dormido!"
         messages.append(message)
     else:
-        raise UnknownCommand("Alguien no sabe lo que escribe... No son horas de beber!")
+        raise UnknownCommand(
+            """Alguien no sabe lo que escribe...
+                             No son horas de beber!"""
+        )
 
     return messages
 

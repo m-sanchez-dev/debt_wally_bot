@@ -1,4 +1,6 @@
-""" Main module for the bot, containing the API routes to interact with the bot """
+""" Main module for the bot,
+containing the API routes to interact with the bot """
+
 import os
 
 import telegram
@@ -17,7 +19,12 @@ global bot
 global TOKEN
 
 TOKEN = os.getenv("BOT_TOKEN")
-bot = telegram.Bot(token=TOKEN)
+
+
+# Function to create and return the Telegram Bot instance
+def create_bot():
+    return telegram.Bot(token=TOKEN)
+
 
 # start the flask app
 app = Flask(__name__)
@@ -27,6 +34,7 @@ debug = Debugger()
 
 @app.route("/setwebhook", methods=["GET", "POST"])
 def set_webhook():
+    bot = create_bot()
     s = bot.setWebhook(os.getenv("URL"))
     if s:
         return "webhook setup ok"
@@ -36,6 +44,7 @@ def set_webhook():
 
 @app.route("/w4lly-t3l3gram-b0t", methods=["POST"])
 def telegram_message():
+    bot = create_bot()
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
 
