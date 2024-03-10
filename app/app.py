@@ -68,10 +68,11 @@ async def telegram_message():
         debug.log("from user :", username)
 
         debug.log("Getting pinned message")
-        pinned_message = await bot.get_chat(chat_id=chat_id).pinned_message
+        chat = await bot.get_chat(chat_id=chat_id)
+        print(chat)
         debug.log("Retrieved pinned message:")
-        if pinned_message:
-            pinned_text = pinned_message.text.encode("utf-8").decode()
+        if chat.pinned_message:
+            pinned_text = chat.pinned_message.text.encode("utf-8").decode()
             debug.log(pinned_text)
             debt_amount = retrieve_pinned_message_amount(pinned_text)
             debug.log(debt_amount)
