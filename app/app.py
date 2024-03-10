@@ -29,8 +29,6 @@ def create_bot():
 # start the flask app
 app = Flask(__name__)
 
-debug = Debugger()
-
 
 @app.route("/setwebhook", methods=["GET", "POST"])
 def set_webhook():
@@ -43,8 +41,10 @@ def set_webhook():
 
 
 @app.route("/w4lly-t3l3gram-b0t", methods=["POST"])
-def telegram_message():
+async def telegram_message():
+    debug = Debugger()
     bot = create_bot()
+
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
 
@@ -66,7 +66,7 @@ def telegram_message():
 
         messages = get_response(text, username)
         for message in messages:
-            bot.sendMessage(chat_id=chat_id, text=message)
+            await bot.sendMessage(chat_id=chat_id, text=message)
 
     except AttributeError:
         debug.log("Received a notification, this is not a message")
@@ -78,7 +78,7 @@ def telegram_message():
         InvalidUser,
     ) as error_message:
 
-        bot.sendMessage(chat_id=chat_id, text=str(error_message))
+        await bot.sendMessage(chat_id=chat_id, text=str(error_message))
 
     return "ok"
 
