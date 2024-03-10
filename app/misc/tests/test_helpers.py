@@ -2,6 +2,7 @@ import pytest
 from app.app import app
 from app.misc.exceptions import InvalidCommand
 from app.misc.helpers import (
+    calculate_rent_amount,
     check_message_and_split,
     get_total_from_result,
     retrieve_pinned_message_amount,
@@ -52,3 +53,17 @@ def test_retrieve_pinned_message_amount():
     # Test case 3: Real message
     pinned_message = "Deuda actual: £85.68"
     assert retrieve_pinned_message_amount(pinned_message) == 85.68
+
+
+def test_calculate_rent_amount():
+    # Test case 1: Valid input
+    amount_pinned = 100
+    assert calculate_rent_amount(amount_pinned) == 550
+
+    # Test case 2: Valid input with zero amount pinned
+    amount_pinned = 0
+    assert calculate_rent_amount(amount_pinned) == 650
+
+    # Test case 3: Valid input with negative amount pinned
+    amount_pinned = -50
+    assert calculate_rent_amount(amount_pinned) == 700
