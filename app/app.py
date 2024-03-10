@@ -96,7 +96,8 @@ async def telegram_message():
                     chat_id=chat_id, message_id=sent_message["message_id"]
                 )
 
-    except AttributeError:
+    except AttributeError as error_message:
+        debug.log(error_message)
         debug.log("Received a notification, this is not a message")
 
     except (
