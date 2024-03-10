@@ -77,6 +77,11 @@ async def telegram_message():
                 message_id="""Revisa el mensaje fijado porque no se ha
                 encontrado el mensaje con el total.""",
             )
+            await bot.pin_chat_message(
+                chat_id=chat_id,
+                message_id="""Usa el siguiente commando para poner una cantidad
+                /set 23.32""",
+            )
 
         messages = get_response(text, username, debt_amount)
         for message in messages:
