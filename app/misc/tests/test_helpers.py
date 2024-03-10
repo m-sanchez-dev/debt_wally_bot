@@ -48,3 +48,7 @@ def test_retrieve_pinned_message_amount():
     # Test case 2: Valid input without number amount
     pinned_message = "No number amount in this message."
     assert retrieve_pinned_message_amount(pinned_message) is None
+
+    # Test case 3: Real message
+    pinned_message = "Deuda actual: £85.68"
+    assert retrieve_pinned_message_amount(pinned_message) == 85.68
