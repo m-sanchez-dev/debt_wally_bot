@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "debt_bot"
-version = "0.1.1"
+version = "0.1.2"
 description = "Debt bot for two people on Telegram"
 authors = ["m-sanchez-dev <mikelsmartinez@aol.com>"]
 
