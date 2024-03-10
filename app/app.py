@@ -13,7 +13,11 @@ from app.misc.exceptions import (
     NotEnoughtRights,
     UnknownCommand,
 )
-from app.misc.helpers import get_response, user_validation
+from app.misc.helpers import (
+    get_response,
+    retrieve_pinned_message_amount,
+    user_validation,
+)
 
 global bot
 global TOKEN
@@ -51,7 +55,6 @@ async def telegram_message():
     debug.log(update)
 
     try:
-
         chat_id = update.effective_message.chat.id
         user = update.effective_message.from_user
 
@@ -64,7 +67,12 @@ async def telegram_message():
         debug.log("got text message :", text)
         debug.log("from user :", username)
 
-        messages = get_response(text, username)
+        pinned_message = await bot.get_pinned_message(chat_id=chat_id)
+        if pinned_message:
+            pinned_text = pinned_message["text"]
+            debt_amount = retrieve_pinned_message_amount(pinned_text)
+
+        messages = get_response(text, username, debt_amount)
         for message in messages:
             sent_message = await bot.sendMessage(chat_id=chat_id, text=message)
 
