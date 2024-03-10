@@ -47,20 +47,35 @@ def get_actual_debt():
     return get_total_from_result(result)
 
 
-def calculate_new_debt(amount: float) -> float:
+def calculate_new_debt(
+    amount: float, debtAmount: float = 0, skipDB: bool = False
+) -> float:
     """
     Retrieves the previous debt from the db and
     calculates the new one using the debt
     """
     # Get previous debt
-    debt = get_actual_debt()
+    if not skipDB:
+        debt = get_actual_debt()
+    else:
+        debt = debtAmount
 
     new_amount = debt + amount
 
     return new_amount
 
 
-def get_calculation_elements(amount, matter, user):
+def save_to_database(user, matter, original_amount, divide, amount, calculated_debt):
+    cuentas_connection = DatabaseConection()
+    cuentas_connection.save_to_db(
+        user, matter, float(original_amount), divide, amount, calculated_debt
+    )
+    cuentas_connection.close_connection()
+
+
+def get_calculation_elements(
+    amount, matter, user, debtAmount: float = 0, skipDB: bool = False
+) -> float:
     """
     Creates all the elements for the new debt calculus
     It also creates all the elements for the query insert
@@ -77,21 +92,20 @@ def get_calculation_elements(amount, matter, user):
     if divide:
         amount = amount / 2
 
-    calculated_debt = calculate_new_debt(float(amount))
+    calculated_debt = calculate_new_debt(float(amount), debtAmount)
 
-    cuentas_connection = DatabaseConection()
-    cuentas_connection.save_to_db(
-        user, matter, float(original_amount), divide, amount, calculated_debt
-    )
-    cuentas_connection.close_connection()
+    if not skipDB:
+        save_to_database(user, matter, original_amount, divide, amount, calculated_debt)
+
+    return calculated_debt
 
 
-def calculate_rent_amount(amountPinned):
+def calculate_rent_amount(amountPinned: float) -> float:
     rentAmount = 650
     return rentAmount - amountPinned
 
 
-def retrieve_pinned_message_amount(pinned_message):
+def retrieve_pinned_message_amount(pinned_message) -> float:
     # Define a regular expression pattern to match the number amount
     pattern = r"£([\d.]+)"
 
@@ -107,7 +121,7 @@ def retrieve_pinned_message_amount(pinned_message):
         debug.log("No number amount found in the message.")
 
 
-def get_response(message, user, amountPinned=0):
+def get_response(message, user, amountPinned: float = 0):
     """
     Gets the message send by user and checks the command
     Available commands /add and /show
@@ -127,20 +141,18 @@ def get_response(message, user, amountPinned=0):
     if command == "/add":
         # Add new amount
         matter, amount = check_message_and_split(splitted_message)
-        get_calculation_elements(amount, matter, user)
+        debt = get_calculation_elements(amount, matter, user, amountPinned, skipDB=True)
         messages.append("Nuevo pago agregado a la deuda")
         messages.append(f"Asunto: {matter}")
         messages.append(f"Cantidad: {POUND_SYMBOL}{amount}")
-        debt = get_actual_debt()
-        message = f"Deuda actualizada: {POUND_SYMBOL}{debt}"
-        messages.append(message)
+        messages.append(f"Deuda actualizada: {POUND_SYMBOL}{debt}")
 
     elif command == "/total":
         message = f"Deuda actual: {POUND_SYMBOL}{amountPinned}"
         messages.append(message)
 
     elif command == "/set":
-        message = f"Deuda actual: {POUND_SYMBOL}{splitted_message}"
+        message = f"Deuda actual: {POUND_SYMBOL}{splitted_message[1]}"
         messages.append(message)
 
     elif command == "/reset":
@@ -158,7 +170,7 @@ def get_response(message, user, amountPinned=0):
     else:
         raise UnknownCommand(
             """Alguien no sabe lo que escribe...
-                             No son horas de beber!"""
+            No son horas de beber!"""
         )
 
     return messages
