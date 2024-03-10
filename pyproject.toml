@@ -3,6 +3,7 @@ name = "debt_bot"
 version = "0.1.2"
 description = "Debt bot for two people on Telegram"
 authors = ["m-sanchez-dev <mikelsmartinez@aol.com>"]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -19,3 +20,4 @@ isort = "^5.13.2"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
