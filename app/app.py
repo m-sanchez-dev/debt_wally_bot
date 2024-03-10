@@ -69,6 +69,7 @@ async def telegram_message():
 
         debug.log("Getting pinned message")
         chat = await bot.get_chat(chat_id=chat_id)
+        print(chat)
         debug.log("Retrieved pinned message:")
         if chat.pinned_message:
             pinned_text = chat.pinned_message.text.encode("utf-8").decode()
