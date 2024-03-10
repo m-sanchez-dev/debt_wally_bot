@@ -63,6 +63,7 @@ async def telegram_message():
         text = update.effective_message.text.encode("utf-8").decode()
         debug.log("got text message :", text)
         debug.log("from user :", username)
+        await bot.sendMessage(chat_id=chat_id, text="Hey there!")
 
         messages = get_response(text, username)
         for message in messages:
