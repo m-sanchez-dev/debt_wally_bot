@@ -71,6 +71,12 @@ async def telegram_message():
         if pinned_message:
             pinned_text = pinned_message["text"]
             debt_amount = retrieve_pinned_message_amount(pinned_text)
+        else:
+            await bot.pin_chat_message(
+                chat_id=chat_id,
+                message_id="""Revisa el mensaje fijado porque no se ha
+                encontrado el mensaje con el total.""",
+            )
 
         messages = get_response(text, username, debt_amount)
         for message in messages:
