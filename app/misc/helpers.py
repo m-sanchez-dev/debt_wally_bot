@@ -97,7 +97,7 @@ def reset_debt(user):
         raise NotEnoughtRights("Eres muy joven para hacer esa operacion")
 
 
-def get_response(bot, message, user):
+def get_response(message, user):
     """
     Gets the message send by user and checks the command
     Available commands /add and /show

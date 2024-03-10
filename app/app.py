@@ -64,7 +64,7 @@ async def telegram_message():
         debug.log("got text message :", text)
         debug.log("from user :", username)
 
-        messages = get_response(bot, text, username)
+        messages = get_response(text, username)
         for message in messages:
             sent_message = await bot.sendMessage(chat_id=chat_id, text=message)
 
