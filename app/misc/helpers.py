@@ -106,7 +106,7 @@ def get_response(message, user, amountPinned: float = 0):
         messages.append("Nuevo pago agregado a la deuda")
         messages.append(f"Asunto: {matter}")
         messages.append(f"Cantidad: {POUND_SYMBOL}{amount}")
-        messages.append(f"Deuda actualizada: {POUND_SYMBOL}{debt}")
+        messages.append(f"Deuda actual: {POUND_SYMBOL}{debt}")
 
     elif command == "/total":
         message = f"Deuda actual: {POUND_SYMBOL}{amountPinned}"
