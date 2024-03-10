@@ -63,11 +63,15 @@ async def telegram_message():
         text = update.effective_message.text.encode("utf-8").decode()
         debug.log("got text message :", text)
         debug.log("from user :", username)
-        await bot.sendMessage(chat_id=chat_id, text="Hey there!")
 
-        messages = get_response(text, username)
+        messages = get_response(bot, text, username)
         for message in messages:
-            await bot.sendMessage(chat_id=chat_id, text=message)
+            sent_message = await bot.sendMessage(chat_id=chat_id, text=message)
+
+            if text == "/total":
+                await bot.pin_chat_message(
+                    chat_id=chat_id, message_id=sent_message["message_id"]
+                )
 
     except AttributeError:
         debug.log("Received a notification, this is not a message")
