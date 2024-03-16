@@ -52,8 +52,6 @@ async def telegram_message():
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
 
-    debug.log(update)
-
     try:
         chat_id = update.effective_message.chat.id
         user = update.effective_message.from_user
@@ -87,6 +85,12 @@ async def telegram_message():
             if "Deuda actual:" in message:
                 await bot.pin_chat_message(
                     chat_id=chat_id, message_id=sent_message["message_id"]
+                )
+                if not chat.pinned_message:
+                    return "ok"
+
+                await bot.unpin_chat_message(
+                    chat_id=chat_id, message_id=chat.pinned_message.message_id
                 )
 
     except AttributeError as error_message:
