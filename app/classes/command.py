@@ -47,7 +47,7 @@ class Command:
         return [f"Deuda actual: {POUND_SYMBOL}{self.amountPinned}"]
 
     def _handle_set(self):
-        return [f"Deuda actual: {POUND_SYMBOL}{self.args[1]}"]
+        return [f"Deuda actual: {POUND_SYMBOL}{self.args[0]}"]
 
     def _handle_reset(self):
         rentAmountToPay = calculate_rent_amount(self.amountPinned)

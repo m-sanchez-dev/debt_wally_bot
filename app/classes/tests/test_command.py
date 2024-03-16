@@ -19,7 +19,7 @@ def test_handle_total():
 
 
 def test_handle_set():
-    command = Command("set", ["set", "300"], 200)
+    command = Command("set", ["300"], 200)
     result = command.execute()
     assert result == ["Deuda actual: £300"]
 
