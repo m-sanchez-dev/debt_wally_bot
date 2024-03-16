@@ -1,11 +1,14 @@
 import pytest
 from app.app import app
-from app.misc.exceptions import InvalidCommand
+from app.misc.exceptions import InvalidCommand, InvalidUser
 from app.misc.helpers import (
     calculate_rent_amount,
     check_message_and_split,
+    extract_username_and_validate,
+    parse_message,
     retrieve_pinned_message_amount,
 )
+
 
 # Mock token for testing purposes
 MOCK_TOKEN = "your_mock_token"
@@ -21,16 +24,16 @@ def client():
 
 def test_check_message_and_split():
     # Test case 1: Valid input
-    splitted_message = ["/commando", "asunto", "cantidad"]
+    splitted_message = ["asunto", "cantidad"]
     assert check_message_and_split(splitted_message) == tuple(["asunto", "cantidad"])
 
     # Test case 2: Invalid input (missing elements)
-    splitted_message = ["/commando", "asunto"]
+    splitted_message = ["asunto"]
     with pytest.raises(InvalidCommand):
         check_message_and_split(splitted_message)
 
     # Test case 3: Invalid input (extra elements)
-    splitted_message = ["/commando", "asunto", "cantidad", "extra"]
+    splitted_message = ["asunto", "cantidad", "extra"]
     with pytest.raises(InvalidCommand):
         check_message_and_split(splitted_message)
 
@@ -61,3 +64,40 @@ def test_calculate_rent_amount():
     # Test case 3: Valid input with negative amount pinned
     amount_pinned = -50
     assert calculate_rent_amount(amount_pinned) == 700
+
+
+def test_extract_username_and_validate():
+    # Test case 1: Valid username
+    user = "john_doe"
+    with pytest.raises(InvalidUser):
+        assert extract_username_and_validate(user)
+
+    # Test case 2: Invalid username
+    user = "john@doe"
+    with pytest.raises(InvalidUser):
+        extract_username_and_validate(user)
+
+    # Test case 3: Empty username
+    user = ""
+    with pytest.raises(InvalidUser):
+        extract_username_and_validate(user)
+
+
+def test_parse_message():
+    # Test case 1: Valid input
+    message = "/commando asunto cantidad"
+    expected_command = "commando"
+    expected_args = ["asunto", "cantidad"]
+    assert parse_message(message) == (expected_command, expected_args)
+
+    # Test case 2: Valid input with no arguments
+    message = "/commando"
+    expected_command = "commando"
+    expected_args = []
+    assert parse_message(message) == (expected_command, expected_args)
+
+    # Test case 3: Valid input with multiple arguments
+    message = "/commando arg1 arg2 arg3"
+    expected_command = "commando"
+    expected_args = ["arg1", "arg2", "arg3"]
+    assert parse_message(message) == (expected_command, expected_args)
