@@ -7,6 +7,7 @@ import telegram
 from flask import Flask, request
 
 from app.classes.debug import Debugger
+from app.misc.command_helpers import get_response
 from app.misc.exceptions import (
     InvalidCommand,
     InvalidUser,
@@ -14,9 +15,8 @@ from app.misc.exceptions import (
     UnknownCommand,
 )
 from app.misc.helpers import (
-    get_response,
+    extract_username_and_validate,
     retrieve_pinned_message_amount,
-    user_validation,
 )
 
 global bot
@@ -52,20 +52,15 @@ async def telegram_message():
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
 
-    debug.log(update)
-
     try:
         chat_id = update.effective_message.chat.id
         user = update.effective_message.from_user
 
-        username = user["username"]
-
-        user_validation(username)
+        extract_username_and_validate(user)
 
         # Telegram understands UTF-8, so encode text for unicode compatibility
         text = update.effective_message.text.encode("utf-8").decode()
         debug.log("got text message :", text)
-        debug.log("from user :", username)
 
         chat = await bot.get_chat(chat_id=chat_id)
         if chat.pinned_message:
@@ -83,13 +78,19 @@ async def telegram_message():
                 /set 23.32""",
             )
 
-        messages = get_response(text, username, debt_amount)
+        messages = get_response(text, debt_amount)
         for message in messages:
             sent_message = await bot.sendMessage(chat_id=chat_id, text=message)
 
             if "Deuda actual:" in message:
                 await bot.pin_chat_message(
                     chat_id=chat_id, message_id=sent_message["message_id"]
+                )
+                if not chat.pinned_message:
+                    return "ok"
+
+                await bot.unpin_chat_message(
+                    chat_id=chat_id, message_id=chat.pinned_message.message_id
                 )
 
     except AttributeError as error_message:
