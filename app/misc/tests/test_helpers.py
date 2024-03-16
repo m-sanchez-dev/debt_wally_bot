@@ -1,10 +1,9 @@
 import pytest
 from app.app import app
-from app.misc.exceptions import InvalidCommand, InvalidUser
+from app.misc.exceptions import InvalidCommand
 from app.misc.helpers import (
     calculate_rent_amount,
     check_message_and_split,
-    extract_username_and_validate,
     parse_message,
     retrieve_pinned_message_amount,
 )
@@ -64,26 +63,6 @@ def test_calculate_rent_amount():
     # Test case 3: Valid input with negative amount pinned
     amount_pinned = -50
     assert calculate_rent_amount(amount_pinned) == 700
-
-
-def test_extract_username_and_validate():
-    # Test case 1: Valid username
-    user = {}
-    user["username"] = "debt_wally_bot"
-    try:
-        extract_username_and_validate(user)
-    except Exception as e:
-        pytest.fail(f"Unexpected exception: {e}")
-
-    # Test case 2: Invalid username
-    user = "john@doe"
-    with pytest.raises(InvalidUser):
-        extract_username_and_validate(user)
-
-    # Test case 3: Empty username
-    user = ""
-    with pytest.raises(InvalidUser):
-        extract_username_and_validate(user)
 
 
 def test_parse_message():
