@@ -4,6 +4,7 @@ import re
 from typing import Union
 
 from app.classes.debug import Debugger
+from app.misc.constants import VALID_COMMANDS
 from app.misc.exceptions import (
     InvalidCommand,
     InvalidUser,
@@ -106,4 +107,9 @@ def parse_message(message):
     splitted_message = message.split(" ")
     command = splitted_message[0][1:]
     args = splitted_message[1:]
+    if command not in VALID_COMMANDS:
+        raise InvalidCommand(
+            """Alguien no sabe lo que escribe...
+            No son horas de beber!"""
+        )
     return command, args

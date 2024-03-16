@@ -88,19 +88,24 @@ def test_extract_username_and_validate():
 
 def test_parse_message():
     # Test case 1: Valid input
-    message = "/commando asunto cantidad"
-    expected_command = "commando"
+    message = "/add asunto cantidad"
+    expected_command = "add"
     expected_args = ["asunto", "cantidad"]
     assert parse_message(message) == (expected_command, expected_args)
 
     # Test case 2: Valid input with no arguments
-    message = "/commando"
-    expected_command = "commando"
+    message = "/set"
+    expected_command = "set"
     expected_args = []
     assert parse_message(message) == (expected_command, expected_args)
 
     # Test case 3: Valid input with multiple arguments
-    message = "/commando arg1 arg2 arg3"
-    expected_command = "commando"
+    message = "/help arg1 arg2 arg3"
+    expected_command = "help"
     expected_args = ["arg1", "arg2", "arg3"]
     assert parse_message(message) == (expected_command, expected_args)
+
+    # Test case 4: Raises error on invalid command
+    message = "/command arg1 arg2 arg3"
+    with pytest.raises(InvalidCommand):
+        parse_message(message)
