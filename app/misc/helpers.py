@@ -7,7 +7,6 @@ from app.classes.debug import Debugger
 from app.misc.constants import VALID_COMMANDS
 from app.misc.exceptions import (
     InvalidCommand,
-    InvalidUser,
 )
 
 debug = Debugger()
@@ -79,25 +78,6 @@ def retrieve_pinned_message_amount(pinned_message) -> float:
         return number_amount
     else:
         debug.log("No number amount found in the message.")
-
-
-def user_validation(user_to_validate):
-    valid_users = ["Trmpy", "Wallyx", "debt_wally_bot"]
-
-    if user_to_validate not in valid_users:
-        raise InvalidUser("A tu casa")
-
-
-def extract_username(user):
-    if "username" in user:
-        return user["username"]
-    else:
-        return None
-
-
-def extract_username_and_validate(user):
-    username = extract_username(user)
-    user_validation(username)
 
 
 def parse_message(message):

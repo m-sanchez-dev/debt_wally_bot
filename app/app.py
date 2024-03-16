@@ -10,12 +10,10 @@ from app.classes.debug import Debugger
 from app.misc.command_helpers import get_response
 from app.misc.exceptions import (
     InvalidCommand,
-    InvalidUser,
     NotEnoughtRights,
     UnknownCommand,
 )
 from app.misc.helpers import (
-    extract_username_and_validate,
     retrieve_pinned_message_amount,
 )
 
@@ -54,9 +52,6 @@ async def telegram_message():
 
     try:
         chat_id = update.effective_message.chat.id
-        user = update.effective_message.from_user
-
-        extract_username_and_validate(user)
 
         # Telegram understands UTF-8, so encode text for unicode compatibility
         text = update.effective_message.text.encode("utf-8").decode()
@@ -101,7 +96,6 @@ async def telegram_message():
         InvalidCommand,
         NotEnoughtRights,
         UnknownCommand,
-        InvalidUser,
     ) as error_message:
 
         await bot.sendMessage(chat_id=chat_id, text=str(error_message))
