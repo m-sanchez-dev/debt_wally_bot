@@ -68,9 +68,12 @@ def test_calculate_rent_amount():
 
 def test_extract_username_and_validate():
     # Test case 1: Valid username
-    user = "john_doe"
-    with pytest.raises(InvalidUser):
-        assert extract_username_and_validate(user)
+    user = {}
+    user["username"] = "debt_wally_bot"
+    try:
+        extract_username_and_validate(user)
+    except Exception as e:
+        pytest.fail(f"Unexpected exception: {e}")
 
     # Test case 2: Invalid username
     user = "john@doe"
