@@ -47,16 +47,3 @@ jobs:
       - name: Run tests
         run: |
           python -m poetry run pytest
-  Deploy-To-Heroku:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    needs: [Build-Package-With-Pip, Build-Package-Poetry]
-    steps:
-      - uses: actions/checkout@v4
-      - name: Deploy to Heroku
-        uses: AkhileshNS/heroku-deploy@v3.13.15
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
-          
