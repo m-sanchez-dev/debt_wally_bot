@@ -1,5 +1,5 @@
 # Use the official Python 3.12.2 image as base
-FROM python:3.12.2
+FROM python:3.12.2-slim
 
 # Set working directory in the container
 WORKDIR /app
@@ -18,4 +18,4 @@ RUN /venv/bin/pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Command to run the application
-CMD ["sh", "-c", "BOT_TOKEN=$BOT_TOKEN URL=$URL /venv/bin/gunicorn --bind 0.0.0.0:5000 app.app:app"]
+CMD ["sh", "-c", "BOT_TOKEN=$BOT_TOKEN URL=$URL /venv/bin/gunicorn --bind 0.0.0.0:5000 --workers $(($(nproc --all) * 2 + 1)) app.app:app"]
