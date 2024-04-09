@@ -33,9 +33,9 @@ app = Flask(__name__)
 
 
 @app.route("/setwebhook", methods=["GET", "POST"])
-def set_webhook():
+async def set_webhook():
     bot = create_bot()
-    s = bot.setWebhook(os.getenv("URL"))
+    s = await bot.setWebhook(os.getenv("URL"))
     if s:
         return "webhook setup ok"
     else:
