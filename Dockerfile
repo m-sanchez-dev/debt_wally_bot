@@ -18,4 +18,4 @@ RUN /venv/bin/pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Command to run the application
-CMD ["sh", "-c", "BOT_TOKEN=$BOT_TOKEN URL=$URL /venv/bin/gunicorn --bind 0.0.0.0:5000 app:app"]
+CMD ["sh", "-c", "BOT_TOKEN=$BOT_TOKEN URL=$URL /venv/bin/gunicorn --bind 0.0.0.0:5000 app.app:app"]
