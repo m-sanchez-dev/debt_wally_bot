@@ -47,6 +47,7 @@ async def set_webhook():
 async def telegram_message():
     debug = Debugger()
     bot = create_bot()
+    debt_amount = 0
 
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
