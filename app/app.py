@@ -30,6 +30,7 @@ def create_bot():
 
 # start the flask app
 app = Flask(__name__)
+app.debug = True
 
 
 @app.route("/setwebhook", methods=["GET", "POST"])
