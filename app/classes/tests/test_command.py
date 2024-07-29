@@ -28,7 +28,7 @@ def test_handle_reset():
     command = Command("reset", "", 100)
     result = command.execute()
     assert result == [
-        "Alquiler a pagar, £550",
+        "Alquiler a pagar, £560",
         "Alquiler pagado, deuda reseteada a 0",
         "Deuda actual: £0",
     ]
@@ -38,7 +38,7 @@ def test_handle_reset_without_debt():
     command = Command("reset", "", 0)
     result = command.execute()
     assert result == [
-        "Alquiler a pagar, £650",
+        "Alquiler a pagar, £660",
         "Alquiler pagado, deuda reseteada a 0",
         "Deuda actual: £0",
     ]

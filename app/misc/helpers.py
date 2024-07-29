@@ -60,7 +60,7 @@ def get_calculation_elements(amount, debtAmount: float = 0) -> float:
 
 
 def calculate_rent_amount(amountPinned: float) -> float:
-    rentAmount = 650
+    rentAmount = 660
     return rentAmount - amountPinned
 
 
