@@ -24,7 +24,9 @@ def client():
 def test_check_message_and_split():
     # Test case 1: Valid input
     splitted_message = ["asunto", "cantidad"]
-    assert check_message_and_split(splitted_message) == tuple(["asunto", "cantidad"])
+    assert check_message_and_split(splitted_message) == tuple(
+        ["asunto", "cantidad"]
+    )
 
     # Test case 2: Invalid input (missing elements)
     splitted_message = ["asunto"]
@@ -54,15 +56,15 @@ def test_retrieve_pinned_message_amount():
 def test_calculate_rent_amount():
     # Test case 1: Valid input
     amount_pinned = 100
-    assert calculate_rent_amount(amount_pinned) == 550
+    assert calculate_rent_amount(amount_pinned) == 560
 
     # Test case 2: Valid input with zero amount pinned
     amount_pinned = 0
-    assert calculate_rent_amount(amount_pinned) == 650
+    assert calculate_rent_amount(amount_pinned) == 660
 
     # Test case 3: Valid input with negative amount pinned
     amount_pinned = -50
-    assert calculate_rent_amount(amount_pinned) == 700
+    assert calculate_rent_amount(amount_pinned) == 710
 
 
 def test_parse_message():
