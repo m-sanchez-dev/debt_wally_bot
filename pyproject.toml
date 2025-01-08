@@ -9,12 +9,12 @@ package-mode = false
 python = "^3.12"
 Flask = {extras = ["async"], version = "^3.0.2"}
 python-telegram-bot = "^21.0.1"
-requests = "^2.31.0"
-gunicorn = "^21.2.0"
+requests = "^2.32.2"
+gunicorn = "^22.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.1.1"
-black = "^24.2.0"
+black = "^24.3.0"
 isort = "^5.13.2"
 
 [build-system]
